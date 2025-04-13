@@ -14,21 +14,12 @@ datasource db {
 }
 
 
-model historyPatient {
-  id                Int         @id           @default(autoincrement())
-  text              String
-  patient           patient     @relation(fields: [patientId], references: [id])
-  patientId         Int
-
-  @@index([patientId])
-}
-
 model patient {
   id                Int          @id           @default(autoincrement())
   name              String
   lastname          String
   birthdate         String
-  medicalHistory    historyPatient[]
+  medicalHistory    String[]
 }
 
 

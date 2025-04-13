@@ -1,18 +1,12 @@
-import { HttpException, HttpStatus } from '@nestjs/common';
 
 export const makeCustomException: (
   defaultMessage: string,
-  status: HttpStatus
-) => new (message?: string) => HttpException = function (defaultMessage, status) {
-  return class extends HttpException {
+) => new (message?: string) => Error = function (defaultMessage) {
+  return class extends Error {
     constructor(message: string = defaultMessage) {
       super(
-        {
-          statusCode: status,
-          messageError: message ?? defaultMessage,
-          timestamp: new Date()
-        },
-      status);
+        message
+      );
     }
   };
 };

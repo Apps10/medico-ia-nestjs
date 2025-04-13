@@ -13,7 +13,7 @@ export class GetAllPatientController {
   @ApiOperation({ summary: 'consultar todos los pacientes' })
   @ApiResponse({
     status: 200,
-    description: 'patients founds successfully',
+    description: 'pacientes encontrados existosamente!',
     type: PatientResponseDto,
     isArray: true,
   })  

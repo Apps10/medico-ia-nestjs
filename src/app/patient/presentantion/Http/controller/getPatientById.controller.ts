@@ -18,10 +18,10 @@ export class GetPatientByIdController {
     example: 1,
     allowReserved: true,
   })
-  
+
   @ApiOperation({ summary: 'Consultar Paciente por Id' })
   @ApiResponse({
-    description: 'patient found successfully',
+    description: 'Paciente encontrado Exitosamente!',
     type: PatientResponseDto,
   })
   async run(@Param() dto: GetPatientByIdHttpDto) {

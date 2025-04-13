@@ -8,10 +8,7 @@ export interface IPatient {
   name: string,
   lastname: string,
   birthdate: string,
-}
-
-export interface IPatientWithMedicalHistory extends IPatient {
-  medicalHistory: IMedicalHistoryPatient[]
+  medicalHistory: string[]
 }
 
 

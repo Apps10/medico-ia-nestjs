@@ -28,4 +28,11 @@ export class PatientResponseDto implements IPatient {
     type: String,
   })
   birthdate: string;
+
+  @ApiProperty({
+    example: '["dolor de cabeza", "fiebre"]',
+    description: 'sintomas del paciente',
+    type: Array,
+  })
+  medicalHistory: string[];
 }

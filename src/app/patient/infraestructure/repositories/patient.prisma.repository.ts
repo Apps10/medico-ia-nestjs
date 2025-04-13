@@ -1,8 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { PatientRepository } from "../../domain/repositories/patient.repository";
 import { PrismaService } from "src/common/services/prisma.service";
-import { ICreatePatient, IPatient, IPatientWithMedicalHistory } from "../../domain/IPatient";
-import { PatientNotFoundHttpException } from "../../domain/exceptions/patient.exception";
+import { ICreatePatient, IPatient } from "../../domain/IPatient";
 
 @Injectable()
 export class PatientPrismaRepository implements PatientRepository {
@@ -31,16 +30,5 @@ export class PatientPrismaRepository implements PatientRepository {
   }
 
 
-  async getPatientWithMedicalHistory(id: IPatient["id"]): Promise<IPatientWithMedicalHistory> {
-    const patientWithMedicalHistory = await this.prismaService.patient.findFirst({
-      where: { id },
-      include: {
-        medicalHistory: true
-      }
-    })
 
-    if(!patientWithMedicalHistory) throw new PatientNotFoundHttpException()
-  
-    return patientWithMedicalHistory
-  }
 }

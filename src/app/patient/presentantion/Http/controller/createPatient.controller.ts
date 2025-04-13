@@ -14,7 +14,7 @@ export class CreatePatientController {
   @ApiOperation({ summary: 'Crear un nuevo paciente' })
   @ApiResponse({
     status: 201,
-    description: 'patient created successfully',
+    description: 'Paciente Creado Exitosamente!',
     type: PatientResponseDto,
   })
   @ApiBody({type: CreatePatientHttpDto})
