@@ -20,9 +20,7 @@ export class PatientPrismaRepository implements PatientRepository {
 
   async getAll(): Promise<IPatient[] | []> {
     const getPatients = await this.prismaService.patient.findMany()
-    return {
-      ...getPatients,
-    }
+    return getPatients
   }
 
   async getById(id: IPatient["id"]): Promise<IPatient | null> {
@@ -33,14 +31,7 @@ export class PatientPrismaRepository implements PatientRepository {
   }
 
 
-  async getPatientHistory(id: IPatient["id"]): Promise<IPatient | null> {
-    const patient = await this.prismaService.patient.findUnique({
-      where: { id }
-    })
-    return patient
-  }
-
-  async getPatientMedicalHistory(id: IPatient["id"]): Promise<IPatientWithMedicalHistory> {
+  async getPatientWithMedicalHistory(id: IPatient["id"]): Promise<IPatientWithMedicalHistory> {
     const patientWithMedicalHistory = await this.prismaService.patient.findFirst({
       where: { id },
       include: {

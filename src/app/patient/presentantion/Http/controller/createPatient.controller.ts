@@ -9,6 +9,6 @@ export class CreatePatientController {
   
   @Post('/')
   async run(@Body() createDto: CreatePatientHttpDto){
-    this.createPatientUseCase.execute(createDto)
+    return this.createPatientUseCase.execute(createDto)
   }
 }

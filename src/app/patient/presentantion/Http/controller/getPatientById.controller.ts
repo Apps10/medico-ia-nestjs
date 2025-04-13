@@ -9,6 +9,6 @@ export class GetPatientByIdController {
 
   @Get("/:id")
   async run(@Param() dto: GetPatientByIdHttpDto){
-    this.getPatientByIdUseCase.execute(dto)
+    return this.getPatientByIdUseCase.execute(dto)
   }
 }
