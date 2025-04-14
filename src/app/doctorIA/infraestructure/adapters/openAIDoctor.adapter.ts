@@ -23,7 +23,7 @@ export class OpenAIDoctorAdapter implements DoctorIAService {
             content: `sintomas del paciente: ${medicalHistory.join(",")}`
           }
         ],
-        model: "gpt-4"
+        model: "gpt-4o"
       })
       const diagnostic = response.choices[0].message.content.trim()
       return { diagnostic, provider: this.provider }

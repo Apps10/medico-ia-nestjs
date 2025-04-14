@@ -1,5 +1,23 @@
 services:
- 
+
+  backend:
+    build: 
+      context: ./
+      dockerfile: dockerfile # o dockerfile.prod
+    depends_on: 
+    - "db" 
+    ports:
+      - 3000:3000
+    volumes: 
+      - ./src:/usr/src/app/src
+      - ./prisma:/usr/src/app/prisma
+    environment:
+      - DATABASE_URL=postgresql://postgres:123456@db:5433/medicIa?schema=public
+      - PORT=3000
+      - OPENAI_API_KEY=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
+      - DEEPSEEK_API_KEY=sk-a0afecf70c754a51b14eebddfabe449a
+      - GEMINI_API_KEY=AIzaSyD_zSnUeqbvenHXvue4XEugXIz-GBynCDM
+
   db:
     image: postgres:16.2
     restart: always

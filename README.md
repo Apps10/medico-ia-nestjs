@@ -1,85 +1,154 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# 🩺 Doctor AI NEST API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Este proyecto es una API REST construida con **NestJS** y arquitectura **Hexagonal** que permite la **creación y consulta de pacientes**, así como la **generación de diagnósticos médicos automáticos** utilizando **modelos de lenguaje como OpenAI (GPT-4)** o **Gemini (Google AI)**.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## 🧠 Objetivo
 
-## Description
+Brindar una solución escalable y extensible para almacenar información de pacientes y utilizar inteligencia artificial para sugerir diagnósticos médicos basados en síntomas proporcionados.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## 📁 Estructura del Proyecto (Hexagonal)
 
-## Project setup
-
-```bash
-$ npm install
+```
+src/
+├── app/
+│   ├── patient/
+│   │   ├── domain/             # Interfaces y entidades del dominio
+│   │   ├── application/        # Casos de uso (servicios de aplicación)
+│   │   ├── infrastructure/     # Adaptadores de base de datos
+│   │   └── presentation/       # Adaptadores HTTP (controllers, dtos)
+│   └── ai/
+│       ├── domain/             # DoctorIa Service y excepciones
+│       ├── application/        # Lógica para generar diagnóstico
+│       └── infrastructure/     # Adaptadores IA (OpenAI, Gemini, deepseek, Mock)
 ```
 
-## Compile and run the project
+## 🚀 Instalación
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+npm install
 ```
 
-## Run tests
+### Entorno
+
+Crea un archivo `.env`:
+
+```env
+PORT=3000
+
+# IA Keys
+OPENAI_API_KEY=tu_clave_openai
+GEMINI_API_KEY=tu_clave_gemini
+```
+
+## ▶️ Ejecución
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+npm run start:dev
 ```
 
-## Resources
+Accede a la documentación Swagger en:
 
-Check out a few resources that may come in handy when working with NestJS:
+```
+http://localhost:3000/docs
+```
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
 
-## Support
+## 🐳 Ejecución con docker
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```bash
+docker compose up -d
+```
 
-## Stay in touch
+Accede a la documentación Swagger en:
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```
+http://localhost:3000/docs
+```
 
-## License
+## 📌 Endpoints disponibles
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+### 1. Crear paciente
+
+**POST** `/patient`
+
+**Body**:
+
+```json
+{
+  "name": "Pedro",
+  "lastname": "Pica Piedra",
+  "birthdate": "1996-01-15",
+  "medicalHistory": ["mareo", "dolor de cabeza"]
+}
+```
+
+**Respuesta**:
+
+```json
+{
+  "id": 1,
+  "name": "pepito",
+  "lastname": "perez",
+  "birthdate": "2000-01-15",
+  "medicalHistory": ["mareo", "dolor de cabeza"]
+}
+```
+
+### 2. Obtener paciente por ID
+
+**GET** `/patient/:id`
+
+**parametro**: 1
+
+**Respuesta**:
+
+```json
+{
+  "id": 1,
+  "name": "pepito",
+  "lastname": "perez",
+  "birthdate": "2000-01-15",
+  "medicalHistory": ["mareo", "dolor de cabeza"]
+}
+```
+
+
+### 3. Generar diagnóstico AI
+
+**POST** `/patient/:id/diagnostico-ai`
+
+**Response**:
+
+```json
+{
+  "diagnostic": "Podría tratarse de migraña tensional. Se recomienda descanso, buena hidratación y control del estrés."
+}
+```
+
+## 🛠️ Funcionalidades destacadas
+
+- Validación con `class-validator`
+- Documentación con Swagger
+- Integración con múltiples proveedores IA (OpenAI, Gemini, DeepSeek)
+- Fallback automático si falla una IA
+- Errores Http Personalizados
+- Errores traducidos al español
+- Arquitectura limpia (Hexagonal)
+
+## 📦 Dependencias principales
+
+- `@nestjs/swagger`
+- `class-validator`
+- `class-transformer`
+- `openai`
+- `Joi`
+- `prisma`
+
+## 🧪 Pruebas
+
+> En desarrollo. Se recomienda usar `Postman` o `Swagger UI` para validar funcionalidad.
+
+
+## 🧠 Ejemplo de integración IA con fallback
+
+La clase `GetDiagnosticIAByMedicalHistoryUseCase` implementa  `DoctorIAService` y prueba primero OpenAI. Si lanza error, intenta con Gemini automáticamente. si tambien falla intenta con el mock de IA.

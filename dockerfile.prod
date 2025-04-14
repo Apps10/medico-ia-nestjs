@@ -1,0 +1,51 @@
+####################################
+# Dependencias                     #
+####################################
+FROM node:21-alpine as deps
+
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+
+RUN npm install
+
+
+
+####################################
+# Builder - Construye la aplicacion#
+####################################
+FROM node:21-alpine as build
+WORKDIR /usr/src/app
+
+#Copiar de deps, los modulos de node
+COPY --from=deps /usr/src/app/node_modules ./node_modules
+
+#copiar codigo fuente
+COPY . .
+
+# RUN npm run test
+RUN npm run build
+
+RUN npm ci -f --only=production && npm cache clean --force
+
+RUN npx prisma generate
+
+####################################
+# crear imagen final de docker     #
+####################################
+FROM node:21-alpine as prod
+WORKDIR /usr/src/app
+
+COPY --from=build /usr/src/app/node_modules ./node_modules
+
+#copiar la carpeta dist
+COPY --from=build /usr/src/app/dist ./dist
+
+ENV NODE_ENV=production
+
+#quitamos los privilegios root del contenedor
+USER node
+
+EXPOSE 3000
+
+CMD ["node", "dist/src/main.js"]
