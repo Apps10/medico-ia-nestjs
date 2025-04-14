@@ -12,7 +12,7 @@ export class JwtAuthGuard implements CanActivate {
     const authHeader = request.headers['authorization'];
 
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      throw new UnauthorizedException('Token not provided');
+      throw new UnauthorizedException('token no proporcionado');
     }
 
     const token = authHeader.split(' ')[1];
@@ -22,12 +22,11 @@ export class JwtAuthGuard implements CanActivate {
         secret: env.JWT_SECRET,
       });
 
-      // puedes añadir user al request si quieres
       request['user'] = payload;
 
       return true;
     } catch (error) {
-      throw new UnauthorizedException('Invalid token');
+      throw new UnauthorizedException('token invalido');
     }
   }
 }
