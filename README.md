@@ -34,7 +34,7 @@ npm install
 
 ### Entorno
 
-Crea un archivo `.env`:
+Crea un archivo `.env` basado en `.env.example`:
 
 ```env
 PORT=3000
@@ -66,7 +66,6 @@ Accede a la documentación Swagger en:
 
 ```
 http://localhost:3000/docs
-```
 
 
 ## 🐳 Ejecución con docker
@@ -80,6 +79,15 @@ Accede a la documentación Swagger en:
 ```
 http://localhost:3000/docs
 ```
+
+
+
+## 🧪 Ejecución de pruebas unitarias
+
+```bash
+npm run test
+```
+
 
 ## 📌 Endpoints disponibles
 
@@ -174,6 +182,7 @@ http://localhost:3000/docs
 - Errores traducidos al español
 - Arquitectura limpia (Hexagonal)
 - Autenticación con JWT y manejo de roles (paciente / médico)
+- Test unitarios para los usecases
 
 ## 📦 Dependencias principales
 
