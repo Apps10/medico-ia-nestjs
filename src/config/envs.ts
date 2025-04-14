@@ -8,6 +8,7 @@ interface Env {
   OPENAI_API_KEY: string;
   DEEPSEEK_API_KEY: string;
   GEMINI_API_KEY: string;
+  JWT_SECRET: string;
 }
 
 const envSchema = Joi.object({
@@ -41,7 +42,12 @@ const envSchema = Joi.object({
     .required()
     .messages({
       "string.empty": "DEEPSEEK_API_KEY no se encuentra en el .env"
-    })
+    }),
+  JWT_SECRET: Joi.string()
+  .required()
+  .messages({
+    "string.empty": "JWT_SECRET no se encuentra en el .env"
+  })
 })
 .unknown(true);
 

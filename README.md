@@ -170,6 +170,7 @@ http://localhost:3000/docs
 ## 📦 Dependencias principales
 
 - `@nestjs/swagger`
+- `@nestjs/jwt`
 - `class-validator`
 - `class-transformer`
 - `openai`
