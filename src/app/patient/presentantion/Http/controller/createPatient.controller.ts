@@ -2,7 +2,7 @@ import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { CreatePatientUseCase } from 'src/app/patient/application/useCases/createPatient.usecase';
 import { CreatePatientHttpDto } from '../dtos/createPatient.http.dto';
 import { CONSTANT_ROUTES } from 'src/common/contants/constants';
-import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { PatientResponseDto } from 'src/app/patient/presentantion/Http/dtos/patientResponse.dto';
 import { JwtAuthGuard } from 'src/app/auth/infraestructure/guards/jwt-auth.guard';
 import { RolesGuard } from 'src/app/auth/infraestructure/guards/roles.guard';
@@ -18,6 +18,7 @@ export class CreatePatientController {
   constructor(private readonly createPatientUseCase: CreatePatientUseCase) {}
 
   @Post('/')
+  @ApiBearerAuth('jwt')  
   @ApiOperation({ summary: 'Crear un nuevo paciente' })
   @ApiResponse({
     status: 201,

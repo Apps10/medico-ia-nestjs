@@ -11,6 +11,17 @@ async function bootstrap() {
   .setTitle("Medico-ia")
   .setTitle("Documentacion de la API para pacientes")
   .setVersion("1.0")
+  .addBearerAuth(
+    {
+      type: 'http',
+      scheme: 'bearer',
+      bearerFormat: 'JWT',
+      name: 'Authorization',
+      description: 'Introduce el token JWT aquí',
+      in: 'header',
+    },
+    'jwt'
+  )
   .build()
   
   app.useGlobalPipes(new ValidationPipe({

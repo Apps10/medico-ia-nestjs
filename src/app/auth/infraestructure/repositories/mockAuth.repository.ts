@@ -5,7 +5,7 @@ import { AuthRepository } from "../../domain/repositories/Auth.repository";
 export class MockAuthRepository  implements AuthRepository {
   private readonly users: IUser[] = [
     {id: 1, username: "patient", password: "patient" , role: "patient"},
-    {id: 2, username: "doctor", password: "patient", role: "doctor"},
+    {id: 2, username: "doctor", password: "doctor", role: "doctor"},
   ]
 
   async ValidateUser({ username, password }: ILoginUser): Promise<IUser | null> {

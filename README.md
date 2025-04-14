@@ -20,6 +20,10 @@ src/
 │       ├── domain/             # DoctorIa Service y excepciones
 │       ├── application/        # Lógica para generar diagnóstico
 │       └── infrastructure/     # Adaptadores IA (OpenAI, Gemini, deepseek, Mock)
+    └── auth/                   
+│       ├── domain/             # Interfaces y entidades de autenticación y autorización
+│       ├── application/        # Casos de uso de autenticación (login, roles)
+│       └── presentation/       # Adaptadores HTTP (login, roles)
 ```
 
 ## 🚀 Instalación
@@ -40,6 +44,9 @@ DATABASE_URL="tu_uri_connection"
 OPENAI_API_KEY=tu_clave_openai
 DEEPSEEK_API_KEY=tu_clave_deepseek
 GEMINI_API_KEY=tu_clave_gemini
+
+# JWT Secret for authentication 
+JWT_SECRET=tu_clave_secreta
 ```
 
 **Nota**: las credenciales ia fueron agregadas en el correo.
@@ -166,6 +173,7 @@ http://localhost:3000/docs
 - Errores Http Personalizados
 - Errores traducidos al español
 - Arquitectura limpia (Hexagonal)
+- Autenticación con JWT y manejo de roles (paciente / médico)
 
 ## 📦 Dependencias principales
 
@@ -182,6 +190,33 @@ http://localhost:3000/docs
 > En desarrollo. Se recomienda usar `Postman` o `Swagger UI` para validar funcionalidad.
 
 
-## 🧠 Ejemplo de integración IA con fallback
+## 🔒 Autenticación y autorización
+La API está protegida con JWT (JSON Web Token). Para acceder a los endpoints protegidos, es necesario incluir un token JWT en los encabezados de la solicitud. Los usuarios pueden tener uno de los siguientes roles:
 
-La clase `GetDiagnosticIAByMedicalHistoryUseCase` implementa  `DoctorIAService` y prueba primero OpenAI. Si lanza error, intenta con Gemini automáticamente. si tambien falla intenta con el mock de IA.
+* `Patient`
+
+* `doctor`
+
+Los roles determinan qué acciones puede realizar un usuario en la API. El RoleGuard y el RoleDecorator se utilizan para proteger los endpoints según el rol del usuario.
+
+* Los médicos pueden realizar todas las operaciones.
+
+* Los pacientes pueden solo consultar los pacientes.
+
+
+
+### 🔐 Credenciales de prueba
+
+Puedes usar las siguientes credenciales para probar los distintos roles disponibles en la API:
+
+#### 👨‍⚕️ Usuario Doctor
+
+- **Username**: `doctor`  
+- **Password**: `doctor`  
+- **Rol**: `doctor`
+
+#### 🧑‍🦰 Usuario Paciente
+
+- **Username**: `patient`  
+- **Password**: `patient`  
+- **Rol**: `patient`

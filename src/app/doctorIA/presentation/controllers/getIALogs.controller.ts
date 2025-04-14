@@ -1,7 +1,7 @@
 import { Controller, Get, UseGuards } from "@nestjs/common";
 import { CONSTANT_ROUTES } from "src/common/contants/constants";
 import { GetAllLogsUsecase } from "../../application/usesCases/getAILogs.usecase";
-import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { JwtAuthGuard } from "src/app/auth/infraestructure/guards/jwt-auth.guard";
 import { RolesGuard } from "src/app/auth/infraestructure/guards/roles.guard";
 import { doctorIaPermissionsConstants } from "../../domain/constants/doctorIa.permissions.constants";
@@ -17,6 +17,7 @@ export class GetAllAiLogsController {
   constructor(private readonly getAllLogsUseCase: GetAllLogsUsecase) {}
 
   @Get()
+  @ApiBearerAuth('jwt')  
   @ApiOperation({ summary: 'consultar todos los logs de las consultas IA' })
   @ApiResponse({
     status: 200,

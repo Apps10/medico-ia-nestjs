@@ -1,5 +1,5 @@
 import { Controller, Get, Param, ParseIntPipe, UseGuards } from "@nestjs/common";
-import { ApiOkResponse, ApiOperation, ApiParam, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { ApiBearerAuth, ApiOkResponse, ApiOperation, ApiParam, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { RolesDecorator } from "src/app/auth/infraestructure/decorators/roles.decorator";
 import { JwtAuthGuard } from "src/app/auth/infraestructure/guards/jwt-auth.guard";
 import { RolesGuard } from "src/app/auth/infraestructure/guards/roles.guard";
@@ -19,6 +19,7 @@ export class GetDiagnosticByAIController {
   ){}
 
   @Get('/:id/diagnostic-ai')
+  @ApiBearerAuth('jwt')   
   @ApiParam({
     name: 'id',
     required: true,

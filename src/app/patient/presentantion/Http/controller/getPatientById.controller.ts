@@ -2,7 +2,7 @@ import { Controller, Get, Param, UseGuards } from '@nestjs/common';
 import { GetPatientByIdUseCase } from 'src/app/patient/application/useCases/getPatientById.usecase';
 import { CONSTANT_ROUTES } from 'src/common/contants/constants';
 import { GetPatientByIdHttpDto } from '../dtos/getPatientById.http.dto';
-import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { PatientResponseDto } from 'src/app/patient/presentantion/Http/dtos/patientResponse.dto';
 import { JwtAuthGuard } from 'src/app/auth/infraestructure/guards/jwt-auth.guard';
 import { RolesGuard } from 'src/app/auth/infraestructure/guards/roles.guard';
@@ -26,6 +26,7 @@ export class GetPatientByIdController {
     allowReserved: true,
   })
 
+  @ApiBearerAuth('jwt')   
   @ApiOperation({ summary: 'Consultar Paciente por Id' })
   @ApiResponse({
     description: 'Paciente encontrado Exitosamente!',
