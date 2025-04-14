@@ -1,8 +1,10 @@
 import env from "src/config/envs";
 import { DoctorIAService } from "../../domain/service/doctorIa.service";
 import fetch from 'node-fetch';
-import { Logger } from "@nestjs/common";
+import { Injectable, Logger } from "@nestjs/common";
 import { DiagnosticException } from "../../domain/exceptions/doctorIa.exception";
+
+@Injectable()
 
 export class GeminiDoctorAdapter implements DoctorIAService {
   private readonly logger = new Logger('GeminiDoctorService')
@@ -32,12 +34,11 @@ export class GeminiDoctorAdapter implements DoctorIAService {
         body: JSON.stringify(requestBody),
       });
       const data = await response.json();
-      console.log(data)
       const diagnostic = data.candidates[0].content.parts[0].text
       return { diagnostic, provider: this.provider}
     }catch(error){
       this.logger.error("Error al generar el diagnostico con IA:", error)
-      throw new DiagnosticException() 
+      throw new DiagnosticException({provider: this.provider, error: error.message}) 
     }
   }
 }

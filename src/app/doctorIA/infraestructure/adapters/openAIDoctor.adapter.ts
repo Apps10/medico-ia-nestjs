@@ -1,9 +1,10 @@
 import env from "src/config/envs";
 import { DoctorIAService } from "../../domain/service/doctorIa.service";
 import { OpenAI } from "openai";
-import { Logger } from "@nestjs/common";
+import { Injectable, Logger } from "@nestjs/common";
 import { DiagnosticException } from "../../domain/exceptions/doctorIa.exception";
 
+@Injectable()
 export class OpenAIDoctorAdapter implements DoctorIAService {
   private readonly clientOpenAI = new OpenAI({ apiKey: env.OPENAI_API_KEY })
   private readonly logger = new Logger('OpenAIDoctorService')
@@ -29,7 +30,7 @@ export class OpenAIDoctorAdapter implements DoctorIAService {
       return { diagnostic, provider: this.provider }
     }catch(error){
       this.logger.error("Error al generar el diagnostico con IA:", error.error)
-      throw new DiagnosticException() 
+      throw new DiagnosticException({provider: this.provider, error: error.message}) 
     }
   }
 }

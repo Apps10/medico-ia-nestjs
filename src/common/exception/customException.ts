@@ -1,12 +1,12 @@
 
 export const makeCustomException: (
   defaultMessage: string,
-) => new (message?: string) => Error = function (defaultMessage) {
+) => new (sharedData?: any) => Error = function (defaultMessage) {
   return class extends Error {
-    constructor(message: string = defaultMessage) {
-      super(
-        message
-      );
+    sharedData 
+    constructor(sharedData) {
+      super(defaultMessage);
+      this.sharedData = sharedData
     }
   };
 };

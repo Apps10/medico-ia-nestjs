@@ -1,9 +1,10 @@
 import env from "src/config/envs";
 import { DoctorIAService } from "../../domain/service/doctorIa.service";
 import fetch from 'node-fetch';
-import { Logger } from "@nestjs/common";
+import { Injectable, Logger } from "@nestjs/common";
 import { DiagnosticException } from "../../domain/exceptions/doctorIa.exception";
 
+@Injectable()
 export class DeepSeekDoctorAdapter implements DoctorIAService {
   private readonly logger = new Logger('DeepSeekDoctorService')
   private readonly provider = "deepseek"
@@ -36,7 +37,7 @@ export class DeepSeekDoctorAdapter implements DoctorIAService {
       return { provider: this.provider, diagnostic }
     }catch(error){
       this.logger.error("Error al generar el diagnostico con IA:", error)
-      throw new DiagnosticException() 
+      throw new DiagnosticException({provider: this.provider, error: error.message}) 
     }
   }
 }

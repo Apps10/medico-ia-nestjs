@@ -2,17 +2,16 @@ services:
 
   backend:
     build: 
-      dockerfile: dockerfile
+      dockerfile: dockerfile.prod
     depends_on: 
     - "db" 
     ports:
       - 3000:3000
-    command: npm run start:docker
     volumes: 
       - ./src:/usr/src/app/src
       - ./prisma:/usr/src/app/prisma
     environment:
-      - DATABASE_URL=postgresql://postgres:123456@db:5432/medicIa?schema=public
+      - DATABASE_URL=postgresql://postgres:123456@db:5433/medicIa?schema=public
       - PORT=3000
       - OPENAI_API_KEY=${OPENAI_API_KEY}
       - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY}

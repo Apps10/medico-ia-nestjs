@@ -15,12 +15,34 @@ datasource db {
 
 
 model patient {
-  id                Int          @id           @default(autoincrement())
+  id                Int             @id           @default(autoincrement())
   name              String
   lastname          String
   birthdate         String
   medicalHistory    String[]
 }
 
+enum statusIaLog {
+   success
+   error
+}
 
+enum IProviderIaLog {
+  openAI
+  deepseek 
+  gemini 
+  mock
+}
+
+model iaLog {
+  id                Int             @id           @default(autoincrement())
+  provider          IProviderIaLog
+  input             String
+  output            String?
+  status            statusIaLog
+  errorMessage      String?
+  createdAt         DateTime                      @default(now())
+
+  @@index([provider, status, createdAt])
+}
 

@@ -1,4 +1,7 @@
+import { Injectable } from "@nestjs/common";
 import { DoctorIAService } from "../../domain/service/doctorIa.service";
+
+@Injectable()
 
 export class MockAIDoctorAdapter implements DoctorIAService {
   private readonly provider = "mock"
